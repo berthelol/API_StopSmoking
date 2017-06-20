@@ -8,7 +8,7 @@ var Schema = mongoose.Schema;
 // define schema
 var DaySchema = new Schema({
   day_id:Number,
-  date: Date,
+  date: String,
   cigarettes:[{ type : mongoose.Schema.Types.ObjectId, ref: 'Cigarette'}],
   user:{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 }, {collection: 'days'});
@@ -29,13 +29,14 @@ function getNextSequence(callback) {
 var App = function() {
   var self = this;
   //add new day and encrypt his password into db
+  //check getdayid
   this.addday = function(newday, callback) {
     getNextSequence(function(err, day_id) {
       if (err)
         return callback(err.msg, null);
         var day = new Day({
           day_id: day_id + 1,
-          date: new Date(newday.date),
+          date: format_day(newday.date),
           cigarettes:[],
           user:mongoose.Types.ObjectId("594222d9b93a951f6f6bc558")
         });
@@ -93,9 +94,15 @@ var App = function() {
     });
   }
   this.getdayid = function(date,callback){
-    console.log(date);
-    Day.findOne({date: new Date(date), user:mongoose.Types.ObjectId("594222d9b93a951f6f6bc558")},function(err,day){
+    console.log(format_day(date));
+    Day.findOne({date: format_day(date), user:mongoose.Types.ObjectId("594222d9b93a951f6f6bc558")},function(err,day){
       if(err)return callback(err.msg,null);
+      /*if(day == null){
+        this.addday({date:date},function(err,day){
+          callback(null,day._id);
+        });
+      }*/
+
       callback(null,day._id);
     });
   }
@@ -108,5 +115,10 @@ var App = function() {
   }
   this._Model = Day;
   this._Schema = DaySchema;
+}
+function format_day(day){
+  var date = new Date(day);
+  return date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
+
 }
 module.exports = new App();
