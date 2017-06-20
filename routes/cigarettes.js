@@ -32,6 +32,10 @@ router.get('/last', function(req, res, next) {
 
 /*POST new cigarette*/
 router.post('/', function(req, res, next) {
+  console.log(req.headers.authorization);
+  token.decode(req.headers.authorization.slice(4),function(err,user){
+    console.log(user);
+  });
   Cigarette.addcigarette(req.body, function(err, cigarette) {
     if (err) {
       return res.status(500).json({success: false, msg: err});
