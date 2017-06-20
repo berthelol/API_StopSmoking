@@ -42,8 +42,8 @@ var App = function() {
       if (err)
         return callback(err.msg, null);
         //encrypt password
-      bcrypt.hash(newuser.password, conf.get("authentication:round"), function(err, hash) {
-        newuser.password = hash;
+      //bcrypt.hash(newuser.password, conf.get("authentication:round"), function(err, hash) {
+      //  newuser.password = hash;
         //create new user from data
         var user = new User({
           user_id: user_id + 1,
@@ -63,7 +63,7 @@ var App = function() {
             callback(null, user_id+1);
           }
         });
-      });
+      //});
     });
   };
   //Update a user with its id
