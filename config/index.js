@@ -14,12 +14,21 @@ nconf.defaults({
         port: 3000,
     },
     // Variables pour configurer mysql
-    database: {
+    /*database: {
         host: '127.0.0.1',
         port: 27017,
         name: 'stopsmoking',
         user: '',
         password: ''
+    }*/
+    database: {
+        port: 27017,
+        name: 'StopSmoking',
+        user: 'louc',
+        password: '4249brazil4249',
+        secondary1:"stopsmoking-shard-00-00-fz7nq.mongodb.net",
+        secondary2:"stopsmoking-shard-00-02-fz7nq.mongodb.net",
+        primary:"stopsmoking-shard-00-01-fz7nq.mongodb.net"
     }
 });
 

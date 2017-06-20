@@ -2,8 +2,9 @@
 var mongoose = require('mongoose');
 var conf = require("../config");
 // Build the connection string
-var dbURI = 'mongodb://localhost/'+conf.get("database:name");
-
+//var dbURI = 'mongodb://localhost/'+conf.get("database:name");
+//var dbURI = "mongodb://"+conf.get("database:user")+":"+conf.get("database:password")+conf.get("database:secondary1")+":"+conf.get("database:port")+","+conf.get("database:primary")+":"+conf.get("database:port")+","+conf.get("database:secondary2")+":"+conf.get("database:port")+"/admin?ssl=true&replicaSet="+conf.get("database:cluster")+"-shard-0&authSource=admin";
+var dbURI = "mongodb://"+conf.get("database:user")+":"+conf.get("database:password")+"@stopsmoking-shard-00-00-fz7nq.mongodb.net:27017,stopsmoking-shard-00-01-fz7nq.mongodb.net:27017,stopsmoking-shard-00-02-fz7nq.mongodb.net:27017/"+conf.get("database:name")+"?ssl=true&replicaSet=StopSmoking-shard-0&authSource=admin";
 // Create the database connection
 mongoose.connect(dbURI);
 
