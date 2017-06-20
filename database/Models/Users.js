@@ -43,7 +43,7 @@ var App = function() {
         return callback(err.msg, null);
         //encrypt password
       bcrypt.hash(newuser.password,null,null, function(err, hash) {
-      //  newuser.password = hash;
+        newuser.password = hash;
         //create new user from data
         var user = new User({
           user_id: user_id + 1,
@@ -116,7 +116,7 @@ var App = function() {
     bcrypt.compare(password, hash, function(err, res) {
       callback(err, res);
     });
-    
+
   };
 
   this._Model = User;
