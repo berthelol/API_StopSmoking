@@ -6,13 +6,14 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var conf = require("./config");
-
+var auth = require('./authentication');
 var db = require('./database/connection');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 var cigarettes = require('./routes/cigarettes');
 var days = require('./routes/days');
+var authenticate = require('./routes/authenticate');
 
 var app = express();
 
@@ -28,10 +29,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/authenticate',authenticate);
+
 app.use('/', index);
-app.use('/users', users);
-app.use('/cigarettes', cigarettes);
-app.use('/days', days);
+app.use('/users',auth.authenticate('jwt'), users);
+app.use('/cigarettes',auth.authenticate('jwt'), cigarettes);
+app.use('/days',auth.authenticate('jwt'), days);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
