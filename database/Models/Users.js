@@ -1,6 +1,6 @@
 "use strict";
 
-//var bcrypt = require("bcrypt");
+var bcrypt = require("bcrypt-nodejs");
 var conf = require("../../config");
 // import the necessary modules
 var mongoose = require('mongoose');
@@ -42,7 +42,7 @@ var App = function() {
       if (err)
         return callback(err.msg, null);
         //encrypt password
-      //bcrypt.hash(newuser.password, conf.get("authentication:round"), function(err, hash) {
+      bcrypt.hash(newuser.password,null,null, function(err, hash) {
       //  newuser.password = hash;
         //create new user from data
         var user = new User({
@@ -63,7 +63,7 @@ var App = function() {
             callback(null, user_id+1);
           }
         });
-      //});
+      });
     });
   };
   //Update a user with its id
@@ -75,7 +75,7 @@ var App = function() {
         callback(null,user);
       });
     }else{
-      bcrypt.hash(data.password, conf.get("authentication:round"), function(err, hash) {
+      bcrypt.hash(data.password, null,null, function(err, hash) {
         data.password = hash;
         //update to db
         User.update({user_id  : id}, {$set: data}, function(err,user){
@@ -113,10 +113,10 @@ var App = function() {
   };
   //Check if the password is a the same
   this.isValidPassword = function(hash, password, callback) {
-    //bcrypt.compare(password, hash, function(err, res) {
-    //  callback(err, res);
-    //});
-    callback(null,true);
+    bcrypt.compare(password, hash, function(err, res) {
+      callback(err, res);
+    });
+    
   };
 
   this._Model = User;
