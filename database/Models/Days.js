@@ -93,6 +93,7 @@ var App = function() {
     });
   }
   this.getdayid = function(date,callback){
+    console.log(date);
     Day.findOne({date: new Date(date), user:mongoose.Types.ObjectId("594222d9b93a951f6f6bc558")},function(err,day){
       if(err)return callback(err.msg,null);
       callback(null,day._id);
