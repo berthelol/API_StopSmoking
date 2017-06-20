@@ -108,7 +108,7 @@ var App = function() {
     Cigarette.findOne().sort({cigarette_id: -1}).exec(function(err, cigarette) {
       if (err)
         return callback(err.msg, null);
-        callback(cigarette,null);
+        callback(null,cigarette);
     });
   }
 

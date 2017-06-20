@@ -2,6 +2,16 @@ var express = require('express');
 var router = express.Router();
 var token = require('../authentication/token');
 var Cigarette = require('../database/Models/Cigarettes.js');
+
+/* GET last cigarette listing. */
+router.get("/last", function(req, res, next) {
+  Cigarette.getlastcigarette(function(err, cigarette) {
+    if (err) {
+      return res.status(500).json({success: false, msg: err});
+    }
+    res.status(200).json(cigarette);
+  });
+});
 /* GET cigarettes listing. */
 router.get('/', function(req, res, next) {
   Cigarette.getallcigarettes(function(err, cigarettes) {
@@ -21,15 +31,7 @@ router.get('/:id', function(req, res, next) {
     res.status(200).json(cigarette);
   });
 });
-/* GET one cigarette listing. */
-router.get('/last', function(req, res, next) {
-  Cigarette.getlastcigarette(function(err, cigarette) {
-    if (err) {
-      return res.status(500).json({success: false, msg: err});
-    }
-    res.status(200).json(cigarette);
-  });
-});
+
 
 /*POST new cigarette*/
 router.post('/', function(req, res, next) {
