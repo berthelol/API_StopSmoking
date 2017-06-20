@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var token = require('../authentication/token');
 var Cigarette = require('../database/Models/Cigarettes.js');
 /* GET cigarettes listing. */
 router.get('/', function(req, res, next) {

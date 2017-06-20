@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var token = require('../authentication/token');
 var Day = require('../database/Models/Days.js');
 /* GET all days listing. */
 router.get('/', function(req, res, next) {
