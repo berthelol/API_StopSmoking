@@ -97,11 +97,11 @@ var App = function() {
     console.log(format_day(date));
     Day.findOne({date: format_day(date), user:mongoose.Types.ObjectId("594222d9b93a951f6f6bc558")},function(err,day){
       if(err)return callback(err.msg,null);
-      /*if(day == null){
+      if(day == null){
         this.addday({date:date},function(err,day){
           callback(null,day._id);
         });
-      }*/
+      }
 
       callback(null,day._id);
     });
