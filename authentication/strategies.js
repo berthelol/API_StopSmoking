@@ -18,7 +18,7 @@ passport.use(new LocalStrategy(
                 } else {
                     return done(err);
                 }
-            }
+            }            
             if(user==null){
               return done(null,false,{message:'No user found'});
             }

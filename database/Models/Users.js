@@ -114,6 +114,7 @@ var App = function() {
   //Check if the password is a the same
   this.isValidPassword = function(hash, password, callback) {
     bcrypt.compare(password, hash, function(err, res) {
+      console.log(res);
       callback(err, res);
     });
 
