@@ -24,11 +24,13 @@ router.get('/:day', function(req, res, next) {
 
 /*POST new day*/
 router.post('/', function(req, res, next) {
-  Day.addday(req.body, function(err, day) {
+  token.decode(req.headers.authorization.slice(4),function(err,user){
+  Day.addday(req.body,user,function(err, day) {
     if (err) {
       return res.status(500).json({success: false, msg: err});
     }
     res.status(200).json({success: true,id:day, msg: "Day well added"});
+  });
   });
 });
 

@@ -30,7 +30,7 @@ var App = function() {
   var self = this;
   //add new day and encrypt his password into db
   //check getdayid
-  this.addday = function(newday, callback) {
+  this.addday = function(newday,user,callback) {
     getNextSequence(function(err, day_id) {
       if (err)
         return callback(err.msg, null);
@@ -38,7 +38,7 @@ var App = function() {
           day_id: day_id + 1,
           date: format_day(newday.date),
           cigarettes:[],
-          user:mongoose.Types.ObjectId("594222d9b93a951f6f6bc558")
+          user:user._id
         });
         //save it to db
         day.save(function(err) {
@@ -64,7 +64,6 @@ var App = function() {
           if(err) return callback(err.msg,null);
           callback(null,day);
         });
-
     }
   };
   //get all days
@@ -93,17 +92,17 @@ var App = function() {
         callback(day,null);
     });
   }
-  this.getdayid = function(date,callback){
-    console.log(format_day(date));
-    Day.findOne({date: format_day(date), user:mongoose.Types.ObjectId("594222d9b93a951f6f6bc558")},function(err,day){
+  this.getdayid = function(date,user,callback){
+    Day.findOne({date: format_day(date), user:user._id},function(err,day){
       if(err)return callback(err.msg,null);
       if(day == null){
-        this.addday({date:date},function(err,day){
-          callback(null,day._id);
+        self.addday({date:date},user,function(err,day){
+          return callback(null,day._id);
         });
+      }else {
+        callback(null,day._id);
       }
 
-      callback(null,day._id);
     });
   }
   this.addcigarette = function(cig_id,day_id,callback){
@@ -111,7 +110,7 @@ var App = function() {
     {safe: true, upsert: true},function(err,cig){
       if(err) return callback(err.msg,null);
       callback(null,cig);
-    })
+    });
   }
   this._Model = Day;
   this._Schema = DaySchema;
@@ -119,6 +118,5 @@ var App = function() {
 function format_day(day){
   var date = new Date(day);
   return date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
-
 }
 module.exports = new App();

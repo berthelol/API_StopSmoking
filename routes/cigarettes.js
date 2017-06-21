@@ -36,13 +36,12 @@ router.get('/:id', function(req, res, next) {
 /*POST new cigarette*/
 router.post('/', function(req, res, next) {
   token.decode(req.headers.authorization.slice(4),function(err,user){
-    console.log(user);
-  });
-  Cigarette.addcigarette(req.body, function(err, cigarette) {
+  Cigarette.addcigarette(req.body,user, function(err, cigarette) {
     if (err) {
       return res.status(500).json({success: false, msg: err});
     }
     res.status(200).json({success: true,id:cigarette, msg: "Cigarette well added"});
+  });
   });
 });
 

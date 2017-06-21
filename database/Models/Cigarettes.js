@@ -34,9 +34,9 @@ function getNextSequence(callback) {
 var App = function() {
   var self = this;
   //add new cigarette and encrypt his password into db
-  this.addcigarette = function(newcigarette, callback) {
+  this.addcigarette = function(newcigarette,user, callback) {
     //Get the day id
-    Day.getdayid(newcigarette.date,function(err,day_id){
+    Day.getdayid(newcigarette.date,user,function(err,day_id){
       //first get latest cigarette_id
       getNextSequence(function(err, cigarette_id) {
         if (err)
@@ -48,7 +48,7 @@ var App = function() {
             lat:newcigarette.lat,
             lng:newcigarette.lng,
             price: newcigarette.price,
-            user:mongoose.Types.ObjectId("594222d9b93a951f6f6bc558"),
+            user:user._id,
             day:day_id
           });
           //save it to db
