@@ -2,6 +2,18 @@ var express = require('express');
 var router = express.Router();
 var token = require('../authentication/token');
 var Day = require('../database/Models/Days.js');
+
+/* GET last days listing. */
+router.get('/last', function(req, res, next) {
+  token.decode(req.headers.authorization.slice(4),function(err,user){
+  Day.getlastday(user,function(err, day) {
+    if (err) {
+      return res.status(500).json({success: false, msg: err});
+    }
+    res.status(200).json(day);
+  });
+});
+});
 /* GET all days listing. */
 router.get('/', function(req, res, next) {
   Day.getalldays(function(err, days) {

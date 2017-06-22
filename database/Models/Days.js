@@ -85,11 +85,11 @@ var App = function() {
     });
   };
   //get last day
-  this.getlastday = function(callback){
-    Day.findOne().sort({day_id: -1}).exec(function(err, day) {
+  this.getlastday = function(user,callback){
+    Day.findOne({user:user._id}).sort({day_id: -1}).exec(function(err, day) {
       if (err)
         return callback(err.msg, null);
-        callback(day,null);
+        callback(null,day);
     });
   }
   this.getdayid = function(date,user,callback){
