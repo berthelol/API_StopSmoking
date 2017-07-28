@@ -14,6 +14,7 @@ var CigaretteSchema = new Schema({
   lat: Number,
   lng: Number,
   price: Number,
+  currency:String,
   user:{ type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 }, {collection: 'cigarettes'});
 

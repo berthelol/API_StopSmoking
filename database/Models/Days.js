@@ -84,9 +84,20 @@ var App = function() {
       callback(null, day);
     });
   };
+  //get day by date
+  this.getdaybydate = function(day_id,user, callback) {
+    Day.findOne({
+      day_id: day_id,user:mongoose.Types.ObjectId(user._id)
+    }, function(err, day) {
+      if (err)
+        return callback(err.msg, null);
+      if(day==null) return callback("Day with "+ day_id + " not found",null);
+      callback(null, day);
+    });
+  };
   //get last day
   this.getlastday = function(user,callback){
-    Day.findOne({user:user._id}).sort({day_id: -1}).exec(function(err, day) {
+    Day.findOne({user:user._id}).populate('cigarettes').sort({day_id: -1}).exec(function(err, day) {
       if (err)
         return callback(err.msg, null);
         callback(null,day);

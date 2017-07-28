@@ -25,13 +25,15 @@ router.get('/', function(req, res, next) {
 });
 
 /* GET one day detail. */
-router.get('/:day', function(req, res, next) {
-  Day.getday(req.params.id, function(err, day) {
+router.get('/:id', function(req, res, next) {
+  token.decode(req.headers.authorization.slice(4),function(err,user){
+  Day.getdaybydate(req.params.id,user, function(err, day) {
     if (err) {
       return res.status(500).json({success: false, msg: err});
     }
     res.status(200).json(day);
   });
+});
 });
 
 /*POST new day*/
