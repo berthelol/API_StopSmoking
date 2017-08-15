@@ -89,6 +89,7 @@ var App = function() {
   };
   //get all cigarettes
   this.getallcigarettesfromuser = function(user,callback){
+    console.log(user);
     Cigarette.find({user:user._id}).populate('user').populate('day').exec(function(err,cigarettes){
       if(err)return callback(err.msg,null);
       callback(null,cigarettes);
