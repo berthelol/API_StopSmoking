@@ -14,11 +14,13 @@ router.get("/last", function(req, res, next) {
 });
 /* GET cigarettes listing. */
 router.get('/', function(req, res, next) {
-  Cigarette.getallcigarettes(function(err, cigarettes) {
-    if (err) {
-      return res.status(500).json({success: false, msg: err});
-    }
-    res.status(200).json(cigarettes);
+  token.decode(req.headers.authorization.slice(4), function(err, user) {
+    Cigarette.getallcigarettesfromuser(user,function(err, cigarettes) {
+      if (err) {
+        return res.status(500).json({success: false, msg: err});
+      }
+      res.status(200).json(cigarettes);
+    });
   });
 });
 
@@ -32,26 +34,25 @@ router.get('/:id', function(req, res, next) {
   });
 });
 
-
 /*POST new cigarette*/
 router.post('/', function(req, res, next) {
-  token.decode(req.headers.authorization.slice(4),function(err,user){
-  Cigarette.addcigarette(req.body,user, function(err, cigarette) {
-    if (err) {
-      return res.status(500).json({success: false, msg: err});
-    }
-    res.status(200).json({success: true,id:cigarette, msg: "Cigarette well added"});
-  });
+  token.decode(req.headers.authorization.slice(4), function(err, user) {
+    Cigarette.addcigarette(req.body, user, function(err, cigarette) {
+      if (err) {
+        return res.status(500).json({success: false, msg: err});
+      }
+      res.status(200).json({success: true, id: cigarette, msg: "Cigarette well added"});
+    });
   });
 });
 
 /*PAtch update one new cigarette*/
 router.patch('/:id', function(req, res, next) {
-  Cigarette.updatecigarette(req.params.id,req.body, function(err, result) {
+  Cigarette.updatecigarette(req.params.id, req.body, function(err, result) {
     if (err) {
       return res.status(500).json({success: false, msg: err});
     }
-    res.status(200).json({success: true,id:result, msg: "Cigarette well updated"});
+    res.status(200).json({success: true, id: result, msg: "Cigarette well updated"});
   });
 });
 

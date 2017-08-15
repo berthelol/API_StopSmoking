@@ -88,8 +88,8 @@ var App = function() {
     }
   };
   //get all cigarettes
-  this.getallcigarettes = function(callback){
-    Cigarette.find({}).populate('user').populate('day').exec(function(err,cigarettes){
+  this.getallcigarettesfromuser = function(user,callback){
+    Cigarette.find({user:user._id}).populate('user').populate('day').exec(function(err,cigarettes){
       if(err)return callback(err.msg,null);
       callback(null,cigarettes);
     });
