@@ -34,6 +34,7 @@ var App = function() {
     getNextSequence(function(err, day_id) {
       if (err)
         return callback(err.msg, null);
+        console.log(format_day(newday.date));
         var day = new Day({
           day_id: day_id + 1,
           date: format_day(newday.date),
@@ -128,6 +129,6 @@ var App = function() {
 }
 function format_day(day){
   var date = new Date(day);
-  return date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
+  return (date.getMonth()+1)+"/"+date.getDate()+"/"+date.getFullYear();
 }
 module.exports = new App();
