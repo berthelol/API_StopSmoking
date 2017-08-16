@@ -68,7 +68,7 @@ var App = function() {
   };
   //get all days
   this.getalldays = function(user,callback){
-    Day.find({user:user._id}).exec(function(err,days){
+    Day.find({user:user._id}).populate('cigarettes').exec(function(err,days){
       if(err)return callback(err.msg,null);
       callback(null,days);
     });
