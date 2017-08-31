@@ -13,14 +13,14 @@ nconf.defaults({
     server: {
         port: 3000,
     },
-    // Variables pour configurer mysql
+    // Variables pour configurer Nosql
     /*database: {
         host: '127.0.0.1',
         port: 27017,
         name: 'stopsmoking',
         user: '',
         password: ''
-    }*/
+    },*/
     database: {
         port: 27017,
         name: 'StopSmoking',

@@ -16,6 +16,16 @@ var UserSchema = new Schema({
   birthday: Date,
   poid: Number,
   start_smoking: Date,
+  home_address:{
+    address:String,
+    lat:Number,
+    lng:Number
+  },
+  work_address:{
+    address:String,
+    lat:Number,
+    lng:Number
+  }
 }, {collection: 'users'});
 
 var User = mongoose.model('User', UserSchema);
@@ -45,7 +55,8 @@ var App = function() {
       bcrypt.hash(newuser.password,null,null, function(err, hash) {
         newuser.password = hash;
         //create new user from data
-        var user = new User({
+        newuser.user_id=user_id+1;
+        /*var user = new User({
           user_id: user_id + 1,
           username:newuser.username,
           firstname:newuser.firstname,
@@ -54,7 +65,8 @@ var App = function() {
           birthday: newuser.birthday,
           poid: newuser.poid,
           start_smoking: newuser.start_smoking
-        });
+        });*/
+        var user = new User(newuser);
         //save it to db
         user.save(function(err) {
           if (err) {
