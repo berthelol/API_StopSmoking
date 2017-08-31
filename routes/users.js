@@ -8,7 +8,7 @@ router.get('/token', function(req, res, next) {
   token.decode(req.headers.authorization.slice(4), function(err, user) {
     console.log(user);
     if (err) {
-      console.log(user);
+      console.log(err);
       return res.status(500).json({success: false, msg: err});
     }
     res.status(200).json(user);
