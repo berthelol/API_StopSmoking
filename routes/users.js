@@ -5,10 +5,10 @@ var User = require('../database/Models/Users.js');
 
 /* GET one user detail by token. */
 router.get('/token', function(req, res, next) {
-  console.log("totot");
   token.decode(req.headers.authorization.slice(4), function(err, user) {
     console.log(user);
     if (err) {
+      console.log(user);
       return res.status(500).json({success: false, msg: err});
     }
     res.status(200).json(user);
