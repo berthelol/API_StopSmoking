@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../database/Models/Users.js');
-
+var token = require('../authentication/token');
 
 /* GET one user detail by token. */
 router.get('/token', function(req, res, next) {
