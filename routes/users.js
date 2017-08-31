@@ -24,6 +24,7 @@ router.get('/:id', function(req, res, next) {
 /* GET one user detail by token. */
 router.get('/token', function(req, res, next) {
   token.decode(req.headers.authorization.slice(4), function(err, user) {
+    console.log(user);
     if (err) {
       return res.status(500).json({success: false, msg: err});
     }
