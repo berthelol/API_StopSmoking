@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/authenticate',authenticate);
 
 app.use('/', index);
-app.use('/users',auth.authenticate('jwt'), users);
+app.use('/users', users);
 app.use('/cigarettes',auth.authenticate('jwt'), cigarettes);
 app.use('/days',auth.authenticate('jwt'), days);
 
