@@ -106,8 +106,8 @@ var App = function() {
       callback(null, cigarette);
     });
   };
-  this.getlastcigarette = function(callback){
-    Cigarette.findOne().sort({cigarette_id: -1}).exec(function(err, cigarette) {
+  this.getlastcigarette = function(user,callback){
+    Cigarette.findOne({user:user._id}).sort({cigarette_id: -1}).exec(function(err, cigarette) {
       if (err)
         return callback(err.msg, null);
         callback(null,cigarette);
