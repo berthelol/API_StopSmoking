@@ -44,14 +44,14 @@ function getNextSequence(callback) {
 }
 
 function checkIfUserAlreadyExist(user,callback){
-  User.find({username:user.username}).limit(1).exec(function(err, user) {
+  User.findOne({username:user.username}).exec(function(err, user) {
     console.log(err,user);
     if (err) {
       callback(true);
-    } else if (user == null||user.length==0) {
-      callback(true);
-    } else {
+    } else if (user == null) {
       callback(false);
+    } else {
+      callback(true);
     }
   });
 }
