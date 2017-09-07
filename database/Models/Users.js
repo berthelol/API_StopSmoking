@@ -1,6 +1,5 @@
 "use strict";
 
-var bcrypt = require('bcryptjs');
 var conf = require("../../config");
 // import the necessary modules
 var mongoose = require('mongoose');
