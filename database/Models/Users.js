@@ -33,7 +33,6 @@ var User = mongoose.model('User', UserSchema);
 //Function to auto increment user_id
 function getNextSequence(callback) {
   User.find().sort({user_id: -1}).limit(1).exec(function(err, user) {
-    console.log(user);
     if (err) {
       callback(err.msg, null);
     } else if (user == null||user.length==0) {
@@ -47,6 +46,7 @@ var App = function() {
   var self = this;
   //add new user and encrypt his password into db
   this.adduser = function(newuser, callback) {
+    console.log(newuser);
     //first get latest user_id
     getNextSequence(function(err, user_id) {
       if (err)
