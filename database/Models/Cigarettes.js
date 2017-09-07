@@ -5,7 +5,7 @@ var Day = require('./Days');
 // import the necessary modules
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-
+var bcrypt = require('bcryptjs');
 // define schema
 var CigaretteSchema = new Schema({
   cigarette_id: Number,
