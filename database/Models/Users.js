@@ -45,7 +45,6 @@ function getNextSequence(callback) {
 
 function checkIfUserAlreadyExist(user,callback){
   User.findOne({username:user.username}).exec(function(err, user) {
-    console.log(err,user);
     if (err) {
       callback(true);
     } else if (user == null) {
@@ -60,7 +59,6 @@ var App = function() {
   //add new user and encrypt his password into db
   this.adduser = function(newuser, callback) {
     checkIfUserAlreadyExist(newuser,function(exist){
-      console.log(exist);
       if(exist) return callback('User already exists',null);
       //first get latest user_id
       getNextSequence(function(err, user_id) {
