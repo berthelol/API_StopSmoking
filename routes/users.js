@@ -49,6 +49,9 @@ router.get('/:id', function(req, res, next) {
 /* POST one new user detail. */
 router.post('/', function(req, res, next) {
   User.adduser(req.body, function(err, result) {
+    if(err=='User already exists'){
+      return res.status(409).json({success:false,msg:err});
+    }
     if (err) {
       return res.status(500).json({success: false, msg: err});
     }
