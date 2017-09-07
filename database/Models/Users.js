@@ -52,8 +52,7 @@ var App = function() {
       if (err)
         return callback(err.msg, null);
         //encrypt password
-      bcrypt.hash(newuser.password,null, function(err, hash) {
-        console.log("banana");
+      bcrypt.hash(newuser.password,conf.get("authentication:salt"), function(err, hash) {
         console.log(hash);
         newuser.password = hash;
         //create new user from data
@@ -89,7 +88,7 @@ var App = function() {
         callback(null,user);
       });
     }else{
-      bcrypt.hash(data.password, null, function(err, hash) {
+      bcrypt.hash(data.password, conf.get("authentication:salt"), function(err, hash) {
         console.log("banana");
         console.log(hash);
         data.password = hash;

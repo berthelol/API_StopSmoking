@@ -7,7 +7,8 @@ nconf.defaults({
     // Si on veut désactiver l'authentification des routes et des sockets
     authentication: {
         round: 4,
-        secret: "StopSmokingBitch"
+        secret: "StopSmokingBitch",
+        salt:8
     },
     // variables du serveur
     server: {
