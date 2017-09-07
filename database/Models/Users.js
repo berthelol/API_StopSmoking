@@ -42,39 +42,42 @@ function getNextSequence(callback) {
     }
   });
 }
+
+function checkIfUserAlreadyExist(user,callback){
+  User.find({username:user.username}).limit(1).exec(function(err, user) {
+    if (err) {
+      callback(true);
+    } else if (user == null||user.length==0) {
+      callback(true);
+    } else {
+      callback(false);
+    }
+  });
+}
 var App = function() {
   var self = this;
   //add new user and encrypt his password into db
   this.adduser = function(newuser, callback) {
-    console.log(newuser);
-    //first get latest user_id
-    getNextSequence(function(err, user_id) {
-      if (err)
-        return callback(err.msg, null);
-        //encrypt password
-      bcrypt.hash(newuser.password,conf.get("authentication:salt"), function(err, hash) {
-        console.log(hash);
-        newuser.password = hash;
-        //create new user from data
-        newuser.user_id=user_id+1;
-        /*var user = new User({
-          user_id: user_id + 1,
-          username:newuser.username,
-          firstname:newuser.firstname,
-          lastname:newuser.lastname,
-          password: newuser.password,
-          birthday: newuser.birthday,
-          poid: newuser.poid,
-          start_smoking: newuser.start_smoking
-        });*/
-        var user = new User(newuser);
-        //save it to db
-        user.save(function(err) {
-          if (err) {
-            callback(err.msg, null);
-          } else {
-            callback(null, user_id+1);
-          }
+    checkIfUserAlreadyExist(newuser,function(exist){
+      if(exist) return callback('User already exists',null);
+      //first get latest user_id
+      getNextSequence(function(err, user_id) {
+        if (err)
+          return callback(err.msg, null);
+          //encrypt password
+        bcrypt.hash(newuser.password,conf.get("authentication:salt"), function(err, hash) {
+          newuser.password = hash;
+          //create new user from data
+          newuser.user_id=user_id+1;
+          var user = new User(newuser);
+          //save it to db
+          user.save(function(err) {
+            if (err) {
+              callback(err.msg, null);
+            } else {
+              callback(null, user_id+1);
+            }
+          });
         });
       });
     });
@@ -89,8 +92,6 @@ var App = function() {
       });
     }else{
       bcrypt.hash(data.password, conf.get("authentication:salt"), function(err, hash) {
-        console.log("banana");
-        console.log(hash);
         data.password = hash;
         //update to db
         User.update({user_id  : id}, {$set: data}, function(err,user){
