@@ -52,7 +52,7 @@ var App = function() {
       if (err)
         return callback(err.msg, null);
         //encrypt password
-      bcrypt.hash(newuser.password,null,null, function(err, hash) {
+      bcrypt.hash(newuser.password,null, function(err, hash) {
         newuser.password = hash;
         //create new user from data
         newuser.user_id=user_id+1;
@@ -87,7 +87,7 @@ var App = function() {
         callback(null,user);
       });
     }else{
-      bcrypt.hash(data.password, null,null, function(err, hash) {
+      bcrypt.hash(data.password, null, function(err, hash) {
         data.password = hash;
         //update to db
         User.update({user_id  : id}, {$set: data}, function(err,user){
