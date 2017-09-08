@@ -15,7 +15,7 @@ var CigaretteSchema = new Schema({
   lng: Number,
   price: Number,
   currency:String,
-  label:String
+  label:String,
   user:{ type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 }, {collection: 'cigarettes'});
 
