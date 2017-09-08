@@ -52,7 +52,7 @@ var App = function() {
             price: newcigarette.price,
             user:user._id,
             day:day_id,
-            label:newcigarette.price
+            label:label
           });
           //save it to db
           cigarette.save(function(err,cig) {
