@@ -15,6 +15,7 @@ var CigaretteSchema = new Schema({
   lng: Number,
   price: Number,
   currency:String,
+  label:String
   user:{ type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 }, {collection: 'cigarettes'});
 
@@ -50,7 +51,8 @@ var App = function() {
             lng:newcigarette.lng,
             price: newcigarette.price,
             user:user._id,
-            day:day_id
+            day:day_id,
+            label:newcigarette.price
           });
           //save it to db
           cigarette.save(function(err,cig) {
