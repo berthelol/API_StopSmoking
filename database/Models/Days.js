@@ -124,6 +124,12 @@ var App = function() {
       callback(null,cig);
     });
   }
+  this.findCigaretteAndRemove = function(cigarette,cb){
+    Day.update( {_id: cigarette.day}, { $pullAll: {cigarettes: [cigarette._id] } },function(err){
+      if(err) return cb(err);
+      return cb(null)
+    } );
+  }
   this._Model = Day;
   this._Schema = DaySchema;
 }
