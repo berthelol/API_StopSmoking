@@ -118,6 +118,7 @@ var App = function() {
   this.deleteOneCigarette =  function(id,user,cb){
     //Also remove in Days
     Cigarette.findOneAndRemove({cigarette_id:id},function(err,cigarette){
+      console.log(err,cigarette);
       if(err) return cb(err.msg);
       Day.findCigaretteAndRemove(cigarette,function(err){
         if(err) return cb(err.msg);
