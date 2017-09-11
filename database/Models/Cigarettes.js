@@ -115,6 +115,13 @@ var App = function() {
         callback(null,cigarette);
     });
   }
+  this.deleteOneCigarette =  function(id,user,cb){
+    Cigarette.remove({cigarette_id:id,user:user._id},function(err){
+      if(err)
+        return cb(err.msg);
+      cb(null);
+    });
+  }
 
   this._Model = Cigarette;
   this._Schema = CigaretteSchema;

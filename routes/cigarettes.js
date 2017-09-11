@@ -48,13 +48,25 @@ router.post('/', function(req, res, next) {
   });
 });
 
-/*PAtch update one new cigarette*/
+/*Patch update one new cigarette*/
 router.patch('/:id', function(req, res, next) {
   Cigarette.updatecigarette(req.params.id, req.body, function(err, result) {
     if (err) {
       return res.status(500).json({success: false, msg: err});
     }
     res.status(200).json({success: true, id: result, msg: "Cigarette well updated"});
+  });
+});
+
+/*Delete one cigarette */
+router.delete('/:id',function(req,res,next){
+  token.decode(req.headers.authorization.slice(4), function(err, user) {
+    Cigarette.deleteOneCigarette(req.params.id,user,function(err){
+      if(err){
+        return res.status(500).json({success: false, msg: err});
+      }
+      res.status(200).json({success: true, msg: "Cigarette well delete"});
+    });
   });
 });
 
