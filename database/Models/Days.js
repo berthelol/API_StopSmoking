@@ -70,7 +70,7 @@ var App = function() {
   //get all days
   this.getalldays = function(user,query,callback){
     console.log(query);
-    Day.find({user:user._id}).sort({cigarette_id:-1}).limit(query.limit=='null'?null:parseInt(query.limit)).populate('cigarettes').exec(function(err,days){
+    Day.find({user:user._id}).sort({day_id:-1}).limit(query.limit=='null'?null:parseInt(query.limit)).populate('cigarettes').exec(function(err,days){
       if(err)return callback(err.msg,null);
       callback(null,days);
     });
