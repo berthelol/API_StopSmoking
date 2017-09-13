@@ -68,8 +68,8 @@ var App = function() {
     }
   };
   //get all days
-  this.getalldays = function(user,callback){
-    Day.find({user:user._id}).populate('cigarettes').exec(function(err,days){
+  this.getalldays = function(user,query,callback){
+    Day.find({user:user._id}).sort({day_id: -1}).limit(query.limit).populate('cigarettes').exec(function(err,days){
       if(err)return callback(err.msg,null);
       callback(null,days);
     });
