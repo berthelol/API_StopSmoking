@@ -12,7 +12,7 @@ nconf.defaults({
     },
     // variables du serveur
     server: {
-        port: 3000,
+        port: 3003,
     },
     // Variables pour configurer Nosql
     /*database: {
